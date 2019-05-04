@@ -1,0 +1,31 @@
+@import '../../../sass/variables';
+
+.message-form {
+  display: flex;
+  margin-top: 2rem;
+
+  &__input {
+    font-size: 1.6rem;
+    padding: 1rem 2rem;
+    border: none;
+    color: $color-black;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    letter-spacing: 0.8px;
+  }
+
+  &__button {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: none;
+    background-color: $color-orange;
+    width: 6rem;
+    cursor: pointer;
+  }
+
+  &__button-icon {
+    width: 2.5rem;
+    margin: 0 auto;
+  }
+}

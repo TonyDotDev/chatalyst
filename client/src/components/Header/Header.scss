@@ -1,0 +1,41 @@
+@import '../../sass/variables';
+
+.header {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5em 5em;
+  z-index: 10;
+
+  &__logo {
+    width: 90px;
+  }
+
+  &__navigation-list {
+    list-style-type: none;
+    display: flex;
+    &:first-child a {
+      margin-left: 20px;
+    }
+
+    & a {
+      font-size: 2rem;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: $color-white;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: color 100ms cubic-bezier(0.47, 0, 0.745, 0.715);
+      font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+
+      &:focus,
+      &:hover {
+        color: $color-green;
+      }
+    }
+  }
+}
