@@ -1,49 +1,40 @@
-import React, { Component } from 'react';
+import React, { useRef, useState } from 'react';
 
 import send from './send.svg';
 
 import './MessageForm.scss';
 
-class MessageForm extends Component {
-  constructor(props) {
-    super(props);
+const MessageForm = ({ io }) => {
+  const [input, setInput] = useState({ message: '' });
 
-    this.state = {
-      message: '',
-    };
-  }
-  handleSubmit = e => {
+  const inputElement = useRef(null);
+
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.io.emit('message', this.state.message);
+    io.emit('message', input.message);
+    setInput({ message: '' });
+    inputElement.current.focus();
   };
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  const handleChange = e => {
+    setInput({ [e.target.name]: e.target.value });
   };
 
-  render() {
-    return (
-      <form
-        className="message-form"
-        onSubmit={this.handleSubmit}
-        autoComplete="off"
-      >
-        <input
-          className="message-form__input"
-          name="message"
-          type="text"
-          onChange={this.handleChange}
-        />
-        <button className="message-form__button" type="submit">
-          <img
-            className="message-form__button-icon"
-            src={send}
-            alt="send icon"
-          />
-        </button>
-      </form>
-    );
-  }
-}
+  return (
+    <form className="message-form" onSubmit={handleSubmit} autoComplete="off">
+      <input
+        className="message-form__input"
+        name="message"
+        type="text"
+        value={input.message}
+        ref={inputElement}
+        onChange={handleChange}
+      />
+      <button className="message-form__button" type="submit">
+        <img className="message-form__button-icon" src={send} alt="send icon" />
+      </button>
+    </form>
+  );
+};
 
 export default MessageForm;

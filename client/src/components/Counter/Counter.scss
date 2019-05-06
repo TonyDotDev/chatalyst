@@ -1,0 +1,35 @@
+@import '../../sass/variables';
+
+.counter {
+  margin-top: 4vh;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (min-width: 600px) {
+    margin-right: 4rem;
+    margin-left: 4rem;
+  }
+
+  &__title {
+    color: $color-white;
+    margin-bottom: 0.25rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  }
+
+  &__number {
+    color: $color-orange;
+    font-size: 3rem;
+    font-family: 'modak', Arial, Helvetica, sans-serif;
+  }
+
+  &__icon {
+    width: 4rem;
+    margin-bottom: 0.5rem;
+  }
+}

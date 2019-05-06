@@ -6,8 +6,8 @@ import './Header.scss';
 
 const Header = ({ io, history }) => {
   const disconnectOnNavigate = e => {
-    // emit signal to disconnect from room on server
     io.emit('leave room');
+    console.log(e.currentTarget.href, history.location.pathname);
     if (
       e.currentTarget.href !==
       `http://localhost:3000${history.location.pathname}`
@@ -31,7 +31,7 @@ const Header = ({ io, history }) => {
             </Link>
           </li>
           <li>
-            <a href="#">Github</a>
+            <a href="https://github.com/NeverEnder4/chatalyst">Github</a>
           </li>
         </ul>
       </nav>

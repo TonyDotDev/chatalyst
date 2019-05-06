@@ -3,33 +3,62 @@
 .username-form {
   display: flex;
   justify-content: center;
-  padding: 10vh 0 4vh 0;
-  width: 35vw;
+  width: 90%;
+  margin-top: 8vh;
+  @media screen and (min-width: 700px) {
+    margin-top: 8vh;
+    width: 75%;
+  }
+
+  @media screen and (min-width: 1200px) {
+    margin-top: 6vh;
+
+    width: 50%;
+  }
+
   &__input {
     flex: 1;
-    padding: 3rem 5rem;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-    border: none;
-    font-size: 4rem;
+    border: 3px solid transparent;
+    outline: none;
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
     color: $color-green;
+    font-size: 1.6rem;
+    padding: 1rem 1.5rem;
+    transition: border 200ms cubic-bezier(0.47, 0, 0.745, 0.715);
+
+    @media screen and (min-width: 700px) {
+      padding: 3rem 5rem;
+      font-size: 4rem;
+    }
     &::placeholder {
       color: rgba($color-orange, 0.4);
+    }
+    &:focus {
+      border: 3px solid $color-orange;
     }
   }
   &__button {
     background-color: $color-orange;
     color: $color-white;
     font-family: 'Modak', Arial, Helvetica, sans-serif;
-    font-size: 3.6rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding: 1rem 2rem;
     border: none;
     outline: none;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     cursor: pointer;
+    width: 30%;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (min-width: 700px) {
+      padding: 1rem 2rem;
+      font-size: 3.6rem;
+    }
   }
 }
