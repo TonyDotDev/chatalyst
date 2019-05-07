@@ -1,0 +1,32 @@
+@import '../../../../sass/variables';
+
+.message {
+  position: absolute;
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 5rem 2rem;
+  &__username {
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: 1.2px;
+    margin-bottom: 5px;
+    &--orange {
+      color: $color-orange;
+    }
+    &--green {
+      color: $color-green;
+    }
+  }
+
+  &__content {
+    display: inline;
+    background: rgba($color-white, 0.2);
+    padding: 0.5rem 1rem;
+    color: $color-white;
+    font-weight: 700;
+    font-size: 2.5rem;
+    border-radius: 3px;
+  }
+}

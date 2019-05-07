@@ -1,34 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import uuid from 'uuid/v4';
+import React from 'react';
+import { useTransition, animated } from 'react-spring';
+
+import Message from './Message/Message';
 
 import './MessageDisplay.scss';
 
-const MessageDisplay = ({ io }) => {
-  const [message, setMessage] = useState({ content: [] });
-
-  useEffect(() => {
-    io.on('message', appendMessage);
-
-    return () => {
-      io.removeListener('message', appendMessage);
-    };
+const MessageDisplay = ({ items }) => {
+  const transition = useTransition(items, item => item.key, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
   });
-
-  const appendMessage = res => {
-    console.log(res);
-    const filteredMessageDataArray = message.content.filter(data => {
-      return data.user !== res.user;
-    });
-    setMessage({ content: [...filteredMessageDataArray, res] });
-  };
 
   return (
     <section className="message-display">
-      <div>
-        {message.content.map(messageData => (
-          <h1 key={uuid()}>{messageData.message}</h1>
-        ))}
-      </div>
+      {transition.map(({ item, key, props }) => (
+        <animated.div key={key} style={props}>
+          <Message messageData={item} />
+        </animated.div>
+      ))}
     </section>
   );
 };
