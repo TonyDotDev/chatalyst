@@ -25,13 +25,38 @@ const Chat = ({ io, history }) => {
     ],
   });
 
+  const [users, setUsers] = useState({ list: [] });
+
   useEffect(() => {
     io.on('message', appendMessage);
+    io.on('remove message on disconnect', removeMessage);
+    io.on('update in room user count', updateUsersList);
 
     return () => {
       io.removeListener('message', appendMessage);
     };
   });
+
+  const filterOutCurrentUser = userListArray => {
+    return userListArray.filter(user => user !== io.id);
+  };
+
+  const undefinedToNull = input => {
+    return !input ? null : input;
+  };
+
+  const updateUsersList = res => {
+    const otherUsersArray = filterOutCurrentUser(Object.keys(res.sockets));
+
+    setUsers({ list: [...otherUsersArray] });
+  };
+
+  const removeMessage = res => {
+    const filterOutDisconnectedUserMessages = message.data.filter(
+      userMessage => userMessage.user !== res.userId,
+    );
+    setMessage({ data: [...filterOutDisconnectedUserMessages] });
+  };
 
   const appendMessage = res => {
     const usernameColor =
@@ -51,7 +76,25 @@ const Chat = ({ io, history }) => {
   return (
     <main className="chat">
       <MessageDisplay io={io} userDisplay={true} items={message.data} />
-      <MessageDisplay io={io} items={message.data} />
+      {}
+      <MessageDisplay
+        io={io}
+        items={message.data}
+        user={undefinedToNull(users.list[0])}
+      />
+      ;
+      <MessageDisplay
+        io={io}
+        items={message.data}
+        user={undefinedToNull(users.list[1])}
+      />
+      ;
+      <MessageDisplay
+        io={io}
+        items={message.data}
+        user={undefinedToNull(users.list[2])}
+      />
+      ;
       <MessageForm io={io} />
     </main>
   );

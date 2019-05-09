@@ -12,8 +12,9 @@ const UsernameForm = ({ io, history }) => {
     io.emit('join room', input.username);
 
     io.on('join response', res => {
-      if (res.error) setInput({ ...input, error: res.error });
-      if (res.id === io.id) {
+      if (res.error && io.id === res.userId)
+        setInput({ ...input, error: res.error });
+      else if (res.id === io.id) {
         history.push('/chat');
       }
     });

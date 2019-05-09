@@ -6,12 +6,19 @@ import './MessageForm.scss';
 
 const MessageForm = ({ io }) => {
   const [input, setInput] = useState({ message: '' });
+  const [users, setUsers] = useState({ count: 0 });
 
   const inputElement = useRef(null);
 
   useEffect(() => {
     inputElement.current.focus();
+
+    io.on('update in room user count', updateInRoomUserCount);
   });
+
+  const updateInRoomUserCount = res => {
+    setUsers({ count: res.length });
+  };
 
   const handleSubmit = e => {
     e.preventDefault();

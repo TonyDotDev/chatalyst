@@ -21,7 +21,7 @@ class Concierge {
       this.rooms.forEach(roomId => {
         const numberOfUsers = this.getNumberOfUsers(io, roomId);
         console.log(numberOfUsers);
-        if (numberOfUsers < 2) {
+        if (numberOfUsers < 4) {
           room = roomId;
           return;
         }

@@ -17,7 +17,7 @@ io.sockets.on('connection', socket => {
 
   socket.on('join room', username => {
     let error = '';
-    const blackListRegEx = /\w/;
+    const blackListRegEx = /\W/;
 
     if (blackListRegEx.test(username)) {
       error = 'Username must be alphanumeric';
@@ -27,16 +27,25 @@ io.sockets.on('connection', socket => {
       error = 'Please enter a username';
     }
 
-    if (error) io.emit('join response', { error });
+    if (error) io.emit('join response', { error, userId: socket.id });
     else {
       const user = concierge.joinRoom(io, socket, username);
 
       console.log('join', concierge.rooms);
 
       const countObject = getCountObject(concierge, socket);
+      const roomsList = concierge.rooms;
+      const emitUserPerRoomCount = roomsArray => {
+        roomsArray.forEach(room => {
+          const numberOfUsers = io.sockets.adapter.rooms[room];
+          console.log('usersperroom', numberOfUsers);
+          io.to(room).emit('update in room user count', numberOfUsers);
+        });
+      };
 
       io.emit('join response', user);
       io.emit('count', countObject);
+      emitUserPerRoomCount(roomsList);
     }
 
     socket.on('message', message => {
@@ -66,7 +75,7 @@ io.sockets.on('connection', socket => {
     console.log('User disconnected');
     concierge.leaveRoom(io, socket);
     const countObject = getCountObject(concierge, socket);
-
+    io.emit('remove message on disconnect', { userId: socket.id });
     io.emit('count', countObject);
   });
 });

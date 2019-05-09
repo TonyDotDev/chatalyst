@@ -5,7 +5,7 @@ import Message from './Message/Message';
 
 import './MessageDisplay.scss';
 
-const MessageDisplay = ({ items, userDisplay, io }) => {
+const MessageDisplay = ({ items, userDisplay, io, user }) => {
   const transition = useTransition(items, item => item.key, {
     from: {
       opacity: 0,
@@ -40,13 +40,18 @@ const MessageDisplay = ({ items, userDisplay, io }) => {
               <Message messageData={item} />
             </animated.div>
           );
-        } else if (!userDisplay && io.id !== item.user) {
+        } else if (!userDisplay && io.id !== item.user && user === item.user) {
           messageJsx = (
             <animated.div key={key} style={props}>
               <Message messageData={item} />
             </animated.div>
           );
-        }
+        } else if (!userDisplay && io.id !== item.user && user === null)
+          messageJsx = (
+            <div className="message-display__no-user">
+              <p>Waiting For A User To Join</p>
+            </div>
+          );
 
         return messageJsx;
       })}
