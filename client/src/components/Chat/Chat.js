@@ -16,10 +16,11 @@ const Chat = ({ io, history }) => {
   const [message, setMessage] = useState({
     data: [
       {
-        username: 'admin',
-        message: 'welcome!',
+        username: 'a',
+        message: 'dummy text',
         key: '11eyhekj',
         user: '34r3r3ferger',
+        pos: { display: 'none' },
       },
     ],
   });
@@ -32,18 +33,6 @@ const Chat = ({ io, history }) => {
     };
   });
 
-  const calculatePosition = () => {
-    let top = Math.floor(Math.random() * 100);
-    const left = Math.floor(Math.random() * 100);
-
-    if (top > 90) top = 85;
-
-    return {
-      top: `${top}%`,
-      left: `${left}%`,
-    };
-  };
-
   const appendMessage = res => {
     const usernameColor =
       io.id === res.user
@@ -51,24 +40,17 @@ const Chat = ({ io, history }) => {
         : 'message__username--green';
 
     res.key = uuid();
-    res.pos = calculatePosition();
     res.usernameColor = usernameColor;
 
-    const messageCount = message.data.filter(userMessage => {
-      return io.id === userMessage.user;
-    }).length;
+    const filterUserMessagesOutArray = message.data.filter(
+      userMessage => res.user !== userMessage.user,
+    );
 
-    if (messageCount === 2) {
-      const filterUserMessagesOutArray = message.data.filter(
-        userMessage => io.id !== userMessage.user,
-      );
-      setMessage({ data: [...filterUserMessagesOutArray, res] });
-    } else setMessage({ data: [...message.data, res] });
-
-    console.log(messageCount);
+    setMessage({ data: [...filterUserMessagesOutArray, res] });
   };
   return (
     <main className="chat">
+      <MessageDisplay io={io} userDisplay={true} items={message.data} />
       <MessageDisplay io={io} items={message.data} />
       <MessageForm io={io} />
     </main>

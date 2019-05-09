@@ -1,6 +1,7 @@
 @import '../../../sass/variables';
 
 .username-form {
+  position: relative;
   display: flex;
   justify-content: center;
   width: 90%;
@@ -59,6 +60,25 @@
     @media screen and (min-width: 700px) {
       padding: 1rem 2rem;
       font-size: 3.6rem;
+    }
+  }
+
+  &__validation-error {
+    color: $color-orange;
+    position: absolute;
+    bottom: -3rem;
+    font-size: 1rem;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+    @media screen and (min-width: 400px) {
+      bottom: -4.5rem;
+      font-size: 1.6rem;
+    }
+    @media screen and (min-width: 400px) {
+      text-align: left;
     }
   }
 }

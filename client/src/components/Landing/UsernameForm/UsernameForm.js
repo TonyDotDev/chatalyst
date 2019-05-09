@@ -1,53 +1,45 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import './UsernameForm.scss';
 
-class UsernameForm extends Component {
-  constructor(props) {
-    super(props);
+const UsernameForm = ({ io, history }) => {
+  const [input, setInput] = useState({ username: '', error: '' });
 
-    this.state = {
-      username: '',
-    };
-  }
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
-    this.props.io.emit('join room', this.state.username);
+    io.emit('join room', input.username);
 
-    this.props.io.on('join response', res => {
-      if (res.error) console.log(res.error);
-      if (res.id === this.props.io.id) {
-        this.props.history.push('/chat');
+    io.on('join response', res => {
+      if (res.error) setInput({ ...input, error: res.error });
+      if (res.id === io.id) {
+        history.push('/chat');
       }
     });
   };
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  const handleChange = e => {
+    setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  render() {
-    return (
-      <form
-        className="username-form"
-        onSubmit={this.handleSubmit}
-        autoComplete="off"
-      >
-        <input
-          className="username-form__input"
-          name="username"
-          type="text"
-          onChange={this.handleChange}
-          placeholder="enter a username"
-        />
-        <button className="username-form__button" type="submit">
-          Chat
-        </button>
-      </form>
-    );
-  }
-}
+  return (
+    <form className="username-form" onSubmit={handleSubmit} autoComplete="off">
+      <input
+        className="username-form__input"
+        name="username"
+        type="text"
+        onChange={handleChange}
+        placeholder="enter a username"
+      />
+      <button className="username-form__button" type="submit">
+        Chat
+      </button>
+      <div className="username-form__validation-error">
+        <p>{input.error ? input.error : null}</p>
+      </div>
+    </form>
+  );
+};
 
 export default withRouter(UsernameForm);

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 import send from './send.svg';
 
@@ -8,6 +8,10 @@ const MessageForm = ({ io }) => {
   const [input, setInput] = useState({ message: '' });
 
   const inputElement = useRef(null);
+
+  useEffect(() => {
+    inputElement.current.focus();
+  });
 
   const handleSubmit = e => {
     e.preventDefault();

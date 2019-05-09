@@ -19,12 +19,12 @@ io.sockets.on('connection', socket => {
     let error = '';
     const blackListRegEx = /\w/;
 
-    if (username.trim() === '' || username === undefined) {
-      error = 'Please enter a username';
+    if (blackListRegEx.test(username)) {
+      error = 'Username must be alphanumeric';
     }
 
-    if (!blackListRegEx.test(username)) {
-      error = 'Usernames can only contain alphanumeric characters';
+    if (username.trim() === '' || username === undefined) {
+      error = 'Please enter a username';
     }
 
     if (error) io.emit('join response', { error });
