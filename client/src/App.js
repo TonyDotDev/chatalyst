@@ -5,6 +5,7 @@ import socketClient from 'socket.io-client';
 import Header from './components/Header/Header';
 import Landing from './components/Landing/Landing';
 import Chat from './components/Chat/Chat';
+import About from './components/About/About';
 
 import 'normalize.css';
 import './App.scss';
@@ -17,7 +18,7 @@ const App = () => (
     <Switch>
       <Route exact path="/" render={() => <Landing io={io} />} />
       <Route path="/chat" render={() => <Chat io={io} />} />
-      {/* <Route path="/about" component={Chat} /> */}
+      <Route path="/about" component={About} />
     </Switch>
   </div>
 );

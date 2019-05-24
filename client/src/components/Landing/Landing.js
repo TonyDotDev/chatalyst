@@ -19,7 +19,7 @@ const Landing = ({ io }) => {
     io.on('count', handleCount);
 
     return () => {
-      io.removeListener('client', handleCount);
+      io.removeListener('count', handleCount);
     };
   }, [io]);
 

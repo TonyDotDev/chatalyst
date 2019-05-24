@@ -34,6 +34,8 @@ const Chat = ({ io, history }) => {
 
     return () => {
       io.removeListener('message', appendMessage);
+      io.removeListener('remove message on disconnect', removeMessage);
+      io.removeListener('update in room user count', updateUsersList);
     };
   });
 
@@ -73,28 +75,28 @@ const Chat = ({ io, history }) => {
 
     setMessage({ data: [...filterUserMessagesOutArray, res] });
   };
+
   return (
     <main className="chat">
       <MessageDisplay io={io} userDisplay={true} items={message.data} />
-      {}
       <MessageDisplay
         io={io}
         items={message.data}
         user={undefinedToNull(users.list[0])}
       />
-      ;
+
       <MessageDisplay
         io={io}
         items={message.data}
         user={undefinedToNull(users.list[1])}
       />
-      ;
+
       <MessageDisplay
         io={io}
         items={message.data}
         user={undefinedToNull(users.list[2])}
       />
-      ;
+
       <MessageForm io={io} />
     </main>
   );

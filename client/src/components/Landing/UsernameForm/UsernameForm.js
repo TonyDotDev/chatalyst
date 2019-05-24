@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
+import ValidationMessage from '../../ValidationMessage/ValidationMessage';
+
 import './UsernameForm.scss';
 
 const UsernameForm = ({ io, history }) => {
@@ -10,7 +12,6 @@ const UsernameForm = ({ io, history }) => {
     e.preventDefault();
 
     io.emit('join room', input.username);
-
     io.on('join response', res => {
       if (res.error && io.id === res.userId)
         setInput({ ...input, error: res.error });
@@ -36,9 +37,7 @@ const UsernameForm = ({ io, history }) => {
       <button className="username-form__button" type="submit">
         Chat
       </button>
-      <div className="username-form__validation-error">
-        <p>{input.error ? input.error : null}</p>
-      </div>
+      <ValidationMessage message={input} />
     </form>
   );
 };

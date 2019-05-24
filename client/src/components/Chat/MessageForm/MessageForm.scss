@@ -1,18 +1,25 @@
 @import '../../../sass/variables';
 
 .message-form {
+  position: relative;
   display: flex;
   margin: 2rem 0 1rem 0;
 
   &__input {
     font-size: 1.6rem;
     padding: 1rem 2rem;
-    border: none;
+    outline: none;
     color: $color-black;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
     letter-spacing: 0.8px;
+    border: 3px solid transparent;
+    transition: border 200ms cubic-bezier(0.47, 0, 0.745, 0.715);
+
+    &:focus {
+      border: 3px solid $color-orange;
+    }
   }
 
   &__button {

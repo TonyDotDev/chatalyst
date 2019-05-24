@@ -1,11 +1,14 @@
 import React from 'react';
 import { useTransition, animated } from 'react-spring';
+import uuid from 'uuid';
 
 import Message from './Message/Message';
+import clockIcon from './clock-icon.svg';
 
 import './MessageDisplay.scss';
 
 const MessageDisplay = ({ items, userDisplay, io, user }) => {
+  console.log(items, user);
   const transition = useTransition(items, item => item.key, {
     from: {
       opacity: 0,
@@ -48,7 +51,12 @@ const MessageDisplay = ({ items, userDisplay, io, user }) => {
           );
         } else if (!userDisplay && io.id !== item.user && user === null)
           messageJsx = (
-            <div className="message-display__no-user">
+            <div className="message-display__no-user" key={uuid()}>
+              <img
+                className="message-display__clock-icon"
+                src={clockIcon}
+                alt="clock icon"
+              />
               <p>Waiting For A User To Join</p>
             </div>
           );

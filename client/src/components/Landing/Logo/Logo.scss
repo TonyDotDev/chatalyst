@@ -1,7 +1,7 @@
 .logo {
   width: 90%;
   height: auto;
-  margin-top: 25vh;
+  margin-top: 20vh;
   filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2));
 
   @media screen and (min-width: 700px) {
@@ -10,7 +10,7 @@
 
   @media screen and (min-width: 1200px) {
     margin-top: 20vh;
-    width: 70%;
+    width: 40%;
   }
 
   &__dot {

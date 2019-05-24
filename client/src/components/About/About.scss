@@ -1,0 +1,78 @@
+@import '../../sass/variables';
+
+.about {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15vh;
+  padding: 0 1.8rem;
+
+  &__headline {
+    font-family: 'Modak', Arial, Helvetica, sans-serif;
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 3vh;
+
+    @media screen and (min-width: 800px) {
+      text-align: left;
+      font-size: 5rem;
+      margin-top: 10vh;
+    }
+
+    &--green {
+      color: $color-green;
+    }
+
+    &--orange {
+      color: $color-orange;
+    }
+  }
+
+  &__paragraph {
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    font-size: 1.6rem;
+    color: $color-white;
+    letter-spacing: 1px;
+    line-height: 170%;
+    max-width: 500px;
+    text-align: center;
+
+    @media screen and (min-width: 500px) {
+      text-align: left;
+    }
+    @media screen and (min-width: 800px) {
+      font-size: 2rem;
+      max-width: 700px;
+    }
+
+    @media screen and (min-width: 1200px) {
+      max-width: 900px;
+    }
+
+    & a {
+      color: $color-orange;
+      font-weight: 700;
+    }
+  }
+  &__cta-link {
+    a {
+      margin: 7vh 0 3rem 0;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+      font-size: 2rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      background-color: $color-orange;
+      color: $color-white;
+    }
+  }
+}

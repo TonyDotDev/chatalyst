@@ -1,27 +1,33 @@
 import React, { useRef, useState, useEffect } from 'react';
 
 import send from './send.svg';
+import ValidationMessage from '../../ValidationMessage/ValidationMessage';
 
 import './MessageForm.scss';
 
 const MessageForm = ({ io }) => {
   const [input, setInput] = useState({ message: '' });
-  const [users, setUsers] = useState({ count: 0 });
 
   const inputElement = useRef(null);
 
   useEffect(() => {
     inputElement.current.focus();
 
-    io.on('update in room user count', updateInRoomUserCount);
+    io.on('message form error', handleValidationError);
+
+    return () => {
+      io.removeListener('message form error', handleValidationError);
+    };
   });
 
-  const updateInRoomUserCount = res => {
-    setUsers({ count: res.length });
+  const handleValidationError = response => {
+    if (io.id === response.userId && response.error)
+      setInput({ ...input, error: response.error });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
+
     io.emit('message', input.message);
     setInput({ message: '' });
     inputElement.current.focus();
@@ -44,6 +50,7 @@ const MessageForm = ({ io }) => {
       <button className="message-form__button" type="submit">
         <img className="message-form__button-icon" src={send} alt="send icon" />
       </button>
+      <ValidationMessage message={input} />
     </form>
   );
 };

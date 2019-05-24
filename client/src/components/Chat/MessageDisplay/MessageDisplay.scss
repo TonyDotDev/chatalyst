@@ -13,14 +13,50 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: $color-white;
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-    font-size: 2rem;
+    font-size: 1.4rem;
     text-align: center;
+    flex-direction: column-reverse;
+    @media screen and (min-width: 600px) {
+      font-size: 2rem;
+    }
+
+    & p {
+      margin-top: 5px;
+    }
+  }
+
+  &__clock-icon {
+    width: 3rem;
+    backface-visibility: hidden;
+
+    animation: rotate 1s infinite forwards
+      cubic-bezier(0.455, 0.03, 0.515, 0.955);
+
+    @media screen and (min-width: 600px) {
+      width: 5rem;
+    }
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform-origin: center center;
+    transform: scale(1);
+  }
+
+  50% {
+    transform-origin: center center;
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform-origin: center center;
+    transform: scale(1);
   }
 }
